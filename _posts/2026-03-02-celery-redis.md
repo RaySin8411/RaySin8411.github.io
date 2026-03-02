@@ -1,5 +1,5 @@
 ---
-permalink: /posts/new
+permalink: /posts/celery_and_redis
 display: normal
 layout: post
 date: '2026-03-02 10:00:01 +08:00'
