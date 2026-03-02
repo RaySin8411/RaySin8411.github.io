@@ -1,5 +1,5 @@
 ---
-permalink: /posts/new
+permalink: /posts/aws_service_solution
 display: normal
 layout: post
 date: '2022-05-06 21:58:28 +08:00'
