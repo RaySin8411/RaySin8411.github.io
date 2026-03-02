@@ -1,5 +1,5 @@
 ---
-permalink: /posts/new
+permalink: /posts/drf_basic
 display: normal
 layout: post
 date: '2026-03-03 07:30:47 +08:00'
