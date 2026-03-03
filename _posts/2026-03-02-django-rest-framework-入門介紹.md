@@ -26,14 +26,13 @@ mathjax: true
   * DELETE：刪除資料
 
 ## Django REST Framework(DRF)
-
-
 ### 功用
 
 * 序列化工具（Serializers）：可以把資料模型轉成 JSON 格式，方便 API 傳送。
 * Class-Based View（CBV）：用更簡潔的方式來寫 API 的邏輯。
 * 權限與認證系統：輕鬆控管誰能存取 API。
 * 自動產生的 API 文件頁面：讓你可以在網頁上測試 API，很方便。
+
 
 ### 功能組件
 
