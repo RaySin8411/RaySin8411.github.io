@@ -44,6 +44,6 @@ Junior Software Engineer, Python Engineer, Statistician
 
 ## **Contact Me**
 
-* [Github](https://github.com/q8977452)
+* [Github](https://github.com/RaySin8411)
 * [Kaggle](https://kaggle.com/xinyouren1995)
 * [LinkedIn](https://www.linkedin.com/in/ray-sin/)
