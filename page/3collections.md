@@ -26,6 +26,12 @@ type: page
 
 	Sanic類似Flask 但有使用到async/await語法
 
+### ERP - odoo
+
+* [2021 iThome 鐵人賽 - Odoo模組開發實務分享](https://ithelp.ithome.com.tw/users/20140778/ironman/4275)
+* [2024 iThome 鐵人賽 - 利用【AI】工具，聰明進行 Odoo 程式開發](https://ithelp.ithome.com.tw/users/20102255/ironman/7473)
+
+
 ## Docker
 
 * [《Docker —— 從入門到實踐­》正體中文版](https://philipzheng.gitbook.io/docker_practice/)
