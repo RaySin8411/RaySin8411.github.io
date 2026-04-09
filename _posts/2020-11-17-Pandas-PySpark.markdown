@@ -3,7 +3,7 @@ layout: post
 title:  "Pandas v.s PySpark"
 date:   2020-11-17 10:57:30 +0800
 categories: Data_Science
-tags : Python Data Analysis
+tags : Python
 mathjax: true
 ---
 * content 

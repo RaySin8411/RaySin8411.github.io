@@ -1,0 +1,37 @@
+---
+layout: post
+title:  "並行、平行與異步"
+date:   2021-03-19 12:38:30 +0800
+categories: Website
+tags : Python
+mathjax: true
+---
+* content 
+{:toc}
+並行、平行與異步
+
+
+
+
+
+Asynchronous programming doesn't improve performance, it improves throughput.
+Threading is about workers; asynchrony is about tasks.
+
+
+* 多執行緒(Multithreading):
+	著重在使用多個工作者(Thread)，它可以同時進行多個工作，但實際上的運作方式是並行還是平行，就看您CPU的能耐如何了
+	
+	* 聘請多個廚師 註:但不一定有效率
+	
+	![multithreading](https://www.baeldung.com/wp-content/uploads/sites/4/2020/07/multithreading.png)
+	
+* 非同步(Asynchronous):
+	著重在有效的使用工作者(Thread)，它可以讓有限的Threads盡可能的完成更多的工作
+	
+	* 讓一個廚師在同樣的時間內做最多的事情
+	
+	![sync and async](https://www.baeldung.com/wp-content/uploads/sites/4/2020/07/sync.png)
+
+## Reference
+* https://www.baeldung.com/cs/async-vs-multi-threading
+* https://kkc.github.io/2017/09/01/asynchronous-programming/

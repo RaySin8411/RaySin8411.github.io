@@ -1,0 +1,142 @@
+---
+layout: post 
+title:  "Crawler Problems"
+date:   2021-03-31 10:31:30 +0800 
+categories: Website 
+tags : Python 
+mathjax: true
+---
+* content
+{:toc} 
+爬蟲實務上遇到的問題
+
+
+
+  
+
+## 套件
+
+	requests: 用來對目標網頁的server發出requests，底層是urllib。
+	BeautifulSoup: 用來解析html，底層是re(正則表達式)。
+	pandas: 用來爬取表格很方便。
+	selenium: 原本的網頁測試工具，用來應付麻煩的javascript。
+	re: 正則表達式，用來取出技術性比較高的文字段落。
+
+## 實務問題
+
+### 1. encoding問題
+
+如果發現爬下來的的頁面無法解析的話，大部分時候是編碼的問題， 編碼一般都是用utf8，這個包含的字量比較多， 例如「喆」在其他編碼中一班會用「吉吉」儲存， 不過比較老舊的非英文網站，或是政府官方網站，
+如果是中文的話很可能會使用cp950或是big5， 這個編碼一般都是從html文件中(所有的html文件都有head跟body兩個部分)的head部分找得到， 按下**F12找到Elements。**
+
+* 狀況一
+
+  爬下來的html檔是亂碼:
+
+  這種狀況可直接設定requests類別實體下的encoding屬性為相對應的編碼
+
+* 狀況二
+
+  POST Data是亂碼:
+  可使用 [webatic](https://www.webatic.com/url-convertor)
+  去解碼，了解這個編碼背後的意思。
+
+### 2. 檔案讀寫問題
+
+若不先將html存成純文字檔案，有可能會產生兩個大問題。
+
+* 電腦的記憶體有限且相對不穩定，所以如果把每個頁面都用暫存存起來，可能會產生記憶體不足，或是程式執行出錯時暫存全部被洗掉的問題。
+
+* 如果每次測試解析html之前都要上網站去get一次，量大的話很有可能會被鎖定IP。
+
+解決辦法
+
+* python內建的套件open
+
+  ```python
+  ## Write File
+  path = "htmlTest"  # 你檔案想要存放的檔名，如果沒給路徑、直接寫檔名，將存在與你現在所執行的python檔同一個資料夾中
+  file = open(path, 'w', encoding='utf8')
+  # path: 如果該路徑下，有相同檔名的檔案，將會直接複寫且不可回復。若沒有，系統則會自動幫你開一個新檔案
+  # 'w': 一般來說，我只用到'w'以及'r'，分別是'寫'與'讀'的意思，其他二進位檔案的讀寫方式，各位有興趣可以自行去研究。如果要讀檔案，直接把'w'改成'r'即可。
+  # encoding='utf8': 指的是開啟這個檔案所使用的編碼，因為windows如果是中文版的，預設打開編碼是cp950(滿討厭的)，所以在寫入檔案的時候，最好用utf8編碼，裡面的字才不會跑掉。
+  file.write(re.text)
+  file.close()  # 寫完要關掉檔案，才會成功存檔。
+  ## Read File 如果你已經把上面程式碼成功執行，則可以往下試著把它讀出來
+  path = "htmlTest"  
+  file = open(path, 'r', encoding='utf8')
+  
+  # 三種讀取方式，每次打開檔案請擇一使用，若重複使用會出現問題。
+  
+  # 一、一次全部讀出來
+  context = file.read()
+  
+  # 二、一次讀一行出來
+  file.readline() ##讀第一行
+  file.readline() ##讀第二行
+  file.readline() ##讀第三行
+  
+  # 三、透過迴圈方式一次讀一行出來
+  for line in file:
+      print(line)
+  file.close()
+  ```
+
+### 3. 一般網站的防爬蟲機制
+
+1. 直接偵測requests的header
+
+   透過F12>Network>目標頁面>Requests Headers找到
+
+   **解決辦法**: 使用假header
+    ```python
+    import requests
+	
+    ## 這是一個很有名的，爬蟲愛好者常去挑戰的一個募資網站
+	url = "https://www.indiegogo.com/projects/viviva-colorsheets-the-most-portable-watercolors-painting-travel--4#/"
+	
+    ## 使用假header
+	headers = {'user-agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'}
+	re = requests.get(url, headers=headers)
+	re.encoding = 'utf8'
+	print(re.text)
+    ```
+
+
+2. 一秒太多次requests
+
+   **解決辦法**: 使用time
+   ```python
+   import time
+   import requests
+   url = "http://cid.acad.ncku.edu.tw/files/14-1056-54086,r677-1.php?Lang=zh-tw"
+   contextLi = []
+    i=0
+   while i < 10:
+       re = requests.get(url)
+       re.encoding = 'utf8'
+       contextLi.append(re.text)
+       i += 1
+       print(i , " succeed")
+       time.sleep(2) 
+   print("this is the first requests----------------------------------\n", contextLi[0])
+   print("this is the last requests----------------------------------\n",contextLi[-1])
+    ```
+
+3. 總共太多次requests，或太規律，鎖IP
+
+   **解決辦法**: 換IP
+
+### 4. javascript渲染出來的網頁，或不明原因被檔的網頁
+
+selenium使用的過程中要注意的問題:
+
+1. 無論使用哪一個瀏覽器，都要使用webDriver，如Chrome Driver
+2. 透過Selector或是Xpath定位元素
+3. 在對任何元素做動作的時候，最好要設定保護機制，如果元素還沒出來，將無法定位到元素，後面的操作也不會成功
+4. 要取得當前頁面的html，使用的是page_source這個屬性的值
+
+## Reference
+
+* https://ithelp.ithome.com.tw/articles/10191161
+* https://ithelp.ithome.com.tw/articles/10191165

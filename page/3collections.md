@@ -10,7 +10,15 @@ type: page
 {:toc}
 
 
-## Python Web Framework
+## Python
+
+* [Algorithms](https://github.com/TheAlgorithms/Python)
+
+* [Cheatsheet](https://github.com/gto76/python-cheatsheet)
+
+* [Deep Learning Models](https://github.com/rasbt/deeplearning-models)
+
+### Web Framework
 
 * [【Flask 教學】2021 Flask 入門路線圖](https://www.maxlist.xyz/2020/05/01/flask-list/)
 
