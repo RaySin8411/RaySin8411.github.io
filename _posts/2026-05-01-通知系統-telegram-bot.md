@@ -17,7 +17,9 @@ Telegram Bot通知系統的相關設定及為啥不用Line
 ## 為什麼使用Telegram Bot 不使用Line
 LINE 官方已經宣布 `LINE Notify` 將於 2025 年 4 月 1 日起正式終止服務。現在如果要用 LINE 發通知，必須改用 `LINE Messaging API (Chatbot)`，而這是有訊息則數限制的（免費額度縮水，且超過後要收費），對於頻繁發送回測或即時訊號的開發者來說，壓力很大。
 
+
 ## 與 LINE Messaging API 對比
+
 特性	| Telegram Bot | LINE Messaging API (現行)
 --------|--------------|--------------------------
 費用 | 完全免費 (目前的 API 政策) | 訊息量大時需付費
@@ -25,6 +27,7 @@ Push 限制 | 極高 (每秒可發多則訊息) | 免費方案每月有額度上
 開發難度 | 簡單 (申請 BotFather 即可) | 複雜 (需處理 Webhook, 頻道設定等)
 隱私性 | 高，不需要個人手機號碼綁定 | 需綁定 LINE 帳號
 格式支援 | 支援 Markdown (字體粗體、程式碼區塊) | 需使用 Flex Message (JSON 格式)
+
 
 ## 🤖 Telegram Bot 申請三部曲
 ### 第一步：向「機器人之父」申請權限
